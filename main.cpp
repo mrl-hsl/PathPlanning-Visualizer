@@ -30,6 +30,7 @@ struct initRoi {
 void CallBackFunc(int event, int x, int y, int flags, void* userdata);
 void ChangeColor(Mat image, vector<vector<bool>>& vec, int x, int y);
 void MakeBlocks(Mat image, vector<vector<bool>>& vec);
+void startEndPoint();
 
 // main
 int main() {
@@ -47,6 +48,7 @@ int main() {
     image = img;
 
     MakeBlocks(image, vec); // makes the blocks
+    startEndPoint();
     imshow("Output", image); // show the output image
     setMouseCallback("Output", CallBackFunc); // a callback function
     
@@ -141,4 +143,16 @@ void ChangeColor(Mat image, vector<vector<bool>>& vec, int x, int y) {
         vec[X][Y] = false; // reseting the value of the block, because is has been changed
     }
     imshow("Output", image);
+}
+
+void startEndPoint() {
+    // make start point block
+    rectangle(image, Point(0, 0), Point(pixel, pixel), Scalar(0, 0, 200), FILLED); 
+    rectangle(image, Point(0, 0), Point(pixel, pixel), Scalar(0, 0, 0), 2, LINE_8);
+
+    // make end point block 
+    rectangle(image, Point(pixel * (H_ratio - 1), pixel * (V_ratio - 1)), Point(pixel * H_ratio, pixel * V_ratio),
+            Scalar(0, 200, 0), FILLED);
+    rectangle(image, Point(pixel * (H_ratio - 1), pixel * (V_ratio - 1)), Point(pixel * H_ratio, pixel * V_ratio), 
+            Scalar(0, 0, 0), 2, LINE_8);
 }
