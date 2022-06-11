@@ -71,9 +71,8 @@ void MakeBlocks(Mat image, vector<vector<bool>>& vec) {
 // any events happening by the mouse is determined in this function
 void CallBackFunc(int event, int x, int y, int flags, void* userdata) {
     int X = x / pixel, Y = y / pixel; // by using these we will know what exact block we are on
-    
     // determines if the left button is down
-    if(event == EVENT_LBUTTONDOWN) {
+    if(event == EVENT_LBUTTONDOWN && (X != 0 || Y != 0) && (X != H_ratio - 1 || Y != V_ratio - 1)) {
         SelectedRoi.initX = x; // saving the x value to 'initX'
         SelectedRoi.initY = y; // saving the y value to 'initY'
         SelectedRoi.init = true; // by givin 'init' the value of 'true' we are telling the program that the button is still down
@@ -108,7 +107,7 @@ void CallBackFunc(int event, int x, int y, int flags, void* userdata) {
         if(changeX >= 1 || changeY >= 1) {
 
             // if the clicked block is not the same color of the current block that mouse is on
-            if(SelectedRoi.grabType != vec[X][Y]) {
+            if(SelectedRoi.grabType != vec[X][Y] && (X != 0 || Y != 0) && (X != H_ratio - 1 || Y != V_ratio - 1)) {
 
                 ChangeColor(image, vec, x, y);
 
