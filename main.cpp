@@ -15,7 +15,7 @@ int H_ratio, V_ratio;
 Mat image;
 
 // coordination struct to use in the callback function
-struct initRoi {
+struct Coordinates {
 
   bool init = false; // on off
 
@@ -34,6 +34,7 @@ void startEndPoint();
 
 // main
 int main() {
+
     system("clear");
 
     // getting the ratio of the output. (it's suggested to be a low number otherwise it will crash)
@@ -51,8 +52,9 @@ int main() {
     startEndPoint();
     imshow("Output", image); // show the output image
     setMouseCallback("Output", CallBackFunc); // a callback function
-    
+
     waitKey(0);
+    return 0;
 }
 
 // this function has the algorithm for the rectangles to be made, and makes them
